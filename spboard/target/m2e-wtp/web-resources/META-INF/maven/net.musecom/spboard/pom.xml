@@ -8,7 +8,7 @@
    <packaging>war</packaging>
    <version>1.0.0-BUILD-SNAPSHOT</version>
    <properties>
-      <java-version>1.6</java-version>
+      <java-version>11</java-version>
       <org.springframework-version>5.2.25.RELEASE</org.springframework-version>
       <org.aspectj-version>1.6.10</org.aspectj-version>
       <org.slf4j-version>1.6.6</org.slf4j-version>
@@ -32,7 +32,13 @@
          <artifactId>spring-webmvc</artifactId>
          <version>${org.springframework-version}</version>
       </dependency>
-            
+       <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+			<dependency>
+				    <groupId>org.springframework</groupId>
+				    <artifactId>spring-jdbc</artifactId>
+				    <version>${org.springframework-version}</version>
+			</dependency>
+	    
       <!-- AspectJ -->
       <dependency>
          <groupId>org.aspectj</groupId>
@@ -167,8 +173,30 @@
 		    <artifactId>tomcat-servlet-api</artifactId>
 		    <version>9.0.46</version>
 		</dependency>
+		  
+		 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.16</version>
+		</dependency>
+		   
+				   <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.1.2</version>
+		</dependency> 
+		 
+				<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-dbcp2</artifactId>
+		    <version>2.12.0</version>
+		</dependency>
+				 
 		            
-		   </dependencies>
+	</dependencies>
     <build>
         <plugins>
             <plugin>
