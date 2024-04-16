@@ -8,17 +8,6 @@
      <typeAlias alias="spBoardDto" type="net.musecom.spboard.dto.SpBoardDto"/> <!-- type에 있는걸 이름을 spBoardDto로 바꿔준다. -->
   </typeAliases>
    
-  <environments default="development">
-    <environment id="development">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>  <!-- context에 db연결했던 값들을 넣어주면된다. -->
-        <property name="url" value="jdbc:mysql://localhost:3306/javaboard?useUnicode=true&amp;characterEncoding=utf-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="diwo0206^"/>
-      </dataSource>
-    </environment>
-  </environments>
   
   <!-- 
   <mappers>

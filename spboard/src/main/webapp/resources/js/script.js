@@ -21,6 +21,7 @@ $(function(){
       let $txt = $(this).text();
       $('.dropdown-toggle').text($txt);
       $('.dropdown-toggle').val($val);
+      $('#searchname').val($val);
    });
 
    //글쓰기 링크

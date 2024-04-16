@@ -1,6 +1,7 @@
 package net.musecom.spboard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,14 +19,14 @@ public interface SpBoardMapper {
     public int update(SpBoardDto dto);
     
     //delete
-    public int delete(int id);
+    public int delete(int selectId);
     
     //전체 게시글 수
     public int selectTotalCount();
     
     //상세보기
-    public SpBoardDto selectDetail(int id);
+    public SpBoardDto selectDetail(int selectId);
     
     //목록보기
-    public List<SpBoardDto> selectList(int limitPage, int viewlist);
+    public List<SpBoardDto> selectList(Map<String, Object> params);
 }

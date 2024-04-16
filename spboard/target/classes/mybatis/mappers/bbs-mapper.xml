@@ -80,9 +80,25 @@
   	SELECT *
   	FROM
   		jboard
+  	where 1
+  	 <if test="searchname != ''">
+       <choose>
+          <when test="searchname == 'title'">
+             and title Like 
+          </when>
+          <when test="searchname == 'writer'">
+             and writer Like
+          </when>
+          <otherwise>
+             and content Like
+          </otherwise>
+       </choose>
+       CONCAT('%', #{searchvalue}, '%')
+    </if>      
+
   	ORDER BY refid DESC,
-  	renum ASC,
-  	LIMIT #{limitPage}, #{viewlist}
+  	renum ASC
+  	LIMIT #{currentPage}, #{listCount}
   </select>
   
   <select id="selectDetail" resultType="spBoardDto" parameterType="int">
