@@ -22,10 +22,10 @@
   <insert id="insert" parameterType="spBoardDto" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO jboard(<include refid="bbsColumn" />) values (
     <!-- 조건 구별 -->
-    <choose> <!-- 여기서 if문에서 else는 없다. -->
+    <choose> <!-- 여기서 if문에서 else는 없다. -->  
     	<!-- 답글일 경우 -->
        <when test="refid != 0">
-            #{refid},   <!-- 변수는 다 #{}로 해준다. -->
+            #{refid},   <!-- 변수는 다 #{}로 해준다. #{}는 String타입으로 ''가 붙어서 나온다, ${}는 그 자료형 그대로 나온다. -->
 		    #{depth},
 		    #{renum},
        </when>
