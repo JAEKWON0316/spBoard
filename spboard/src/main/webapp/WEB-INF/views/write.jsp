@@ -21,7 +21,7 @@
                      <input type="text" name="title" id="title" class="form-control col-10" placeholder="제목" />
                   </div>
                   <div class="col-12">
-                     <textarea name="contents" id="contents" class="form-control">
+                     <textarea name="content" id="contents" class="form-control">
                      </textarea>
                   </div>
                   <!-- /게스트일때 적용-->

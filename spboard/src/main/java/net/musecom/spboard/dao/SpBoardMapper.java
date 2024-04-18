@@ -29,4 +29,7 @@ public interface SpBoardMapper {
     
     //목록보기
     public List<SpBoardDto> selectList(Map<String, Object> params);
+    
+    //조회수 증가
+    public void increaseHit(int selectId);
 }

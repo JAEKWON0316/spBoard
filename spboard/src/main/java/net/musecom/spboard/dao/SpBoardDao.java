@@ -43,17 +43,25 @@ public class SpBoardDao implements SpBoardMapper {
 	@Override
 	public SpBoardDto selectDetail(int selectId) {
 		
+		/*
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("id", selectId);
 		System.out.println(selectId);
-		return session.selectOne("selectDetail", map);
-		
+		return session.selectOne("selectDetail", map);  //map을 이용하여 하는법
+		*/
+		return session.selectOne("selectDetail", selectId);
 	}
 
 	@Override
 	public List<SpBoardDto> selectList(Map<String, Object> params) {
 		
 		return session.selectList("selectList", params); //변수로 map을 보내서 selectList를 불러오겠다.
+	}
+
+	@Override
+	public void increaseHit(int selectId) {
+		session.update("increaseHit", selectId);
+		
 	}
 
 }

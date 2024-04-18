@@ -32,7 +32,7 @@
 		<level value="info" />
 	</logger>
     
-    <logger name="net.musecom.spboard.dao.SpBoardMapper">  <!-- 이렇게하면 실행한 쿼리문을 콘솔로 확인할 수 있다! -->
+    <logger name="net.musecom.dao.SpBoardMapper">  <!-- 이렇게하면 실행한 쿼리문을 콘솔로 확인할 수 있다! -->
 		<level value="debug" />
 	</logger>
     

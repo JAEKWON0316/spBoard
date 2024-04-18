@@ -60,13 +60,13 @@
 	    writer = #{writer},
 	    pass = #{pass}
     WHERE
-    	id = #{id}
+    	id = #{selectId}
   </update>
   
   <delete id="delete" parameterType="int">
     DELETE FROM jboard
     WHERE
-      id = #{id}
+      id = #{selectId}
   </delete>
   
   <select id="selectTotalCount" resultType="int">
@@ -102,11 +102,11 @@
   </select>
   
   <select id="selectDetail" resultType="spBoardDto" parameterType="int">
-  	SELECT
-  		*
-  	FROM
-  		jboard
-  	WHERE
-  		id = #{id}
+  	SELECT * FROM jboard WHERE id = #{selectId}
   </select>
+  
+  <update id="increaseHit" parameterType="int">
+  	UPDATE jboard SET hit = hit + 1 where id = #{selectId}
+  </update>
+  
 </mapper>
