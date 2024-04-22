@@ -32,4 +32,7 @@ public interface SpBoardMapper {
     
     //조회수 증가
     public void increaseHit(int selectId);
+    
+    //refid 업데이트
+  	public void updateRefId(int id);
 }

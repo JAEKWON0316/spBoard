@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import net.musecom.spboard.dao.SpBoardDao;
 import net.musecom.spboard.service.SpGetContentService;
 import net.musecom.spboard.service.SpGetListService;
+import net.musecom.spboard.service.SpSetContentService;
 
 @Controller
 public class BbsController {
@@ -25,7 +26,9 @@ public class BbsController {
 	SpBoardDao dao;
 	@Autowired
 	SpGetContentService getContent;
-	
+	//insert
+	@Autowired
+	SpSetContentService setContent;
 	@RequestMapping("/list")
 	public String list(@RequestParam(value="cpg", defaultValue="1") int cpg,
 					   @RequestParam(value="searchname", defaultValue="") String searchname,
@@ -104,12 +107,14 @@ public class BbsController {
 	public String writeok(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("writeok() 실행됨");
+		model.addAttribute("request", request);
+		setContent.excute(model);
 		//mapper 확인
 		//dao 확인
 		//SpSetWriteService implement SpService 생성
 		
 		
-		return "redirect.list";  //본문 실행 후 리턴값으로 list로 보냄
+		return "redirect:list";  //본문 실행 후 리턴값으로 list로 보냄
 	}
 	
 	@GetMapping("/edit")

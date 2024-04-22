@@ -24,22 +24,19 @@
     <!-- 조건 구별 -->
     <choose> <!-- 여기서 if문에서 else는 없다. -->  
     	<!-- 답글일 경우 -->
-       <when test="refid != 0">
-            #{refid},   <!-- 변수는 다 #{}로 해준다. #{}는 String타입으로 ''가 붙어서 나온다, ${}는 그 자료형 그대로 나온다. -->
-		    #{depth},
-		    #{renum},
+       <when test="refid == 0">
+            0,   
+		    0,
+		    1,
        </when>
        <!-- 새글일 경우 -->
        <otherwise>  <!-- if문에서 else와 같다. -->
-       		last_insertId(),
-       		0,
-       		0,
+       	  #{refid}, <!-- 변수는 다 #{}로 해준다. #{}는 String타입으로 ''가 붙어서 나온다, ${}는 그 자료형 그대로 나온다. -->
+          #{depth},
+          #{renum}, 
        </otherwise>
-    </choose>
-      #{refid},   <!-- 변수는 다 #{}로 해준다. -->
-      #{depth},
-      #{renum},
-      #{title},
+    </choose>   
+      #{title},  <!-- 변수는 다 #{}로 해준다. -->
       #{content},
       #{writer},
       #{pass},
@@ -51,6 +48,12 @@
     )
    
   </insert>
+  
+  <update id="updateRefId" parameterType="int">
+  
+     UPDATE jboard SET refid = #{id} WHERE id=#{id}
+     
+  </update>
   
   <update id="update" parameterType="spBoardDto">
     UPDATE jboard
