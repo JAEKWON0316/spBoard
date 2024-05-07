@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="res/js/summernote-bs4.js"></script>
-<script src="res/js/lang/summernote-ko-KR.min.js"></script>   
-
-           <div class="write">
+  <script src="res/js/summernote-bs4.js"></script>
+  <script src="res/js/lang/summernote-ko-KR.min.js"></script>
+       <div class="write">
               <h2 class="text-center mt-4 mb-5 pb-4">글 수정하기</h2>
               <form name="writeform" id="writeform" class="writeform row" method="post">
                   <!-- 게스트일때 적용 -->
@@ -32,4 +31,3 @@
                   </div>
               </form>
            </div>
-   

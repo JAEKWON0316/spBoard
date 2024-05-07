@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="net.musecome.spboard">
+	<logger name="net.musecom.spboard">
 		<level value="info" />
 	</logger>
 	

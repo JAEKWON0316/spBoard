@@ -16,21 +16,19 @@ public class SpGetContentService implements SpService {
 
 	@Autowired
 	SpBoardDao dao;
+	 
 	
 	@Override
 	public void excute(Model model) {
-		
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		int selectId = Integer.parseInt(req.getParameter("id"));
-		boolean increaseHit = (boolean) map.get("increaseHit");
-	    System.out.println(increaseHit); 
-		if(increaseHit) { //쿠키가 없을 때만 조회수를 증가한다.
-	        dao.increaseHit(selectId);
-	     }
-		
-		SpBoardDto dto = dao.selectDetail(selectId);
-		model.addAttribute("dto", dto); //jsp에서 dto. 으로 쓸 수 있게 됨.
+	  Map<String, Object> map = model.asMap();
+	  HttpServletRequest req = (HttpServletRequest) map.get("req");
+	  int selectId = Integer.parseInt(req.getParameter("id"));
+	  boolean increaseHit = (boolean) map.get("increaseHit");
+	  if(increaseHit) { //쿠키가 없을 때만 조회수를 증가한다.
+	     dao.increaseHit(selectId);
+	  }
+	  SpBoardDto dto = dao.selectDetail(selectId);
+	  model.addAttribute("dto", dto);
 	}
 
 }

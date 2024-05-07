@@ -24,14 +24,6 @@ $(function(){
       $('#searchname').val($val);
    });
 
-   //글쓰기 링크
-   $("#contents").summernote({
-       placeholder: "내용",
-       tabsize: 2,
-       height:300,
-       lang: 'ko-KR'
-   });
-
    //코멘트 버튼 보이기
    $(".comments .btn-box").click(function(){
       $(this).find('.edel').toggle();

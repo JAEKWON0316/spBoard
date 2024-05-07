@@ -4,87 +4,83 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.musecom.spboard.dao.SpBoardMapper">
 
-<sql id="bbsColumn"> <!-- 우리가 쓰려고 만든 id -->
-    refid,
-    depth,
-    renum,
-    title,
-    content,
-    writer,
-    pass,
-    userid,
-    hit,
-    chit,
-    wdate,
-    imnum
-</sql>
+  <sql id="bbsColumn">
+     refid,
+     depth,
+     renum,
+     title,
+     content,
+     writer,
+     pass,
+     userid,
+     hit,
+     chit,
+     wdate,
+     imnum
+  </sql>
+
 
   <insert id="insert" parameterType="spBoardDto" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO jboard(<include refid="bbsColumn" />) values (
-    <!-- 조건 구별 -->
-    <choose> <!-- 여기서 if문에서 else는 없다. -->  
-    	<!-- 답글일 경우 -->
-       <when test="refid == 0">
-            0,   
-		    0,
-		    1,
-       </when>
-       <!-- 새글일 경우 -->
-       <otherwise>  <!-- if문에서 else와 같다. -->
-       	  #{refid}, <!-- 변수는 다 #{}로 해준다. #{}는 String타입으로 ''가 붙어서 나온다, ${}는 그 자료형 그대로 나온다. -->
+     INSERT INTO jboard(<include refid="bbsColumn"/>) values (
+
+     <choose>
+        <when test="refid == 0">
+          0,
+          0,
+          1,              
+        </when>
+        <otherwise>
+          #{refid}, 
           #{depth},
           #{renum}, 
-       </otherwise>
-    </choose>   
-      #{title},  <!-- 변수는 다 #{}로 해준다. -->
-      #{content},
-      #{writer},
-      #{pass},
-      #{userid},
-      0,
-      0,
-      now(),
-      unix_timestamp()
-    )
-   
+        </otherwise>
+     </choose>
+       #{title},
+       #{content},
+       #{writer},
+       #{pass},
+       #{userid},
+       0,
+       0,
+       now(),
+       #{imnum}
+     )
   </insert>
-  
+
   <update id="updateRefId" parameterType="int">
-  
      UPDATE jboard SET refid = #{id} WHERE id=#{id}
-     
   </update>
-  
+
   <update id="update" parameterType="spBoardDto">
-    UPDATE jboard
-    SET
-	    title = #{title},
-	    content = #{content},
-	    writer = #{writer},
-	    pass = #{pass}
-    WHERE
-    	id = #{selectId}
+     UPDATE jboard 
+     SET
+        title = #{title},
+        content = #{content},
+        writer = #{writer},
+        pass = #{pass}
+     WHERE
+        id=#{selectId}   
   </update>
   
   <delete id="delete" parameterType="int">
-    DELETE FROM jboard
-    WHERE
-      id = #{selectId}
+     DELETE FROM jboard
+     WHERE
+       id=#{selectId}  
   </delete>
   
   <select id="selectTotalCount" resultType="int">
-  	SELECT
-  		COUNT(*)
-  	FROM
-  		jboard
+     SELECT
+       COUNT(*)
+     FROM
+       jboard
   </select>
-  
-  <select id="selectList" resultType="spBoardDto"> <!-- 목록보기에서 list로 해줬지만 어차피 여기서 각각돌면서 list에 담기 때문에 반환타입을 SpBoardDto로 해줘도된다. -->
-  	SELECT *
-  	FROM
-  		jboard
-  	where 1
-  	 <if test="searchname != ''">
+
+  <select id="selectList" resultType="spBoardDto" parameterType="hashMap">
+    SELECT * 
+    FROM 
+       jboard
+    where 1    
+    <if test="searchname != ''">
        <choose>
           <when test="searchname == 'title'">
              and title Like 
@@ -98,18 +94,17 @@
        </choose>
        CONCAT('%', #{searchvalue}, '%')
     </if>      
+    ORDER BY refid DESC, 
+    renum ASC 
+    LIMIT #{currentPage}, #{listCount}  
+  </select>  
 
-  	ORDER BY refid DESC,
-  	renum ASC
-  	LIMIT #{currentPage}, #{listCount}
-  </select>
-  
   <select id="selectDetail" resultType="spBoardDto" parameterType="int">
-  	SELECT * FROM jboard WHERE id = #{selectId}
+     SELECT * FROM jboard WHERE id= #{selectId}
   </select>
-  
+ 
   <update id="increaseHit" parameterType="int">
-  	UPDATE jboard SET hit = hit + 1 where id = #{selectId}
+     UPDATE jboard SET hit = hit + 1 WHERE id=#{selectId}
   </update>
-  
+
 </mapper>

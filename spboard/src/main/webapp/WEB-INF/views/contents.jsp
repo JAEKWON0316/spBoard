@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
          <!-- listbox -->
             <div class="listbox">
                <h3 class="mt-5"><i class="ri-arrow-right-double-line"></i> ${dto.title }</h3> 
                <div class="mt-2 mb-5 pt-2 border-top text-right">
                   <span class="mr-4"><label class="font-italic">hit:</label> ${dto.hit }</span>
                   <span class="mr-4 font-weight-bold">${dto.writer }</span>
-                  <span class="mr-2"><fmt:formatDate value="${dto.wdate }" pattern="yyyy.MM.dd" /></span>
+                  <span class="mr-2">
+                     <fmt:formatDate value="${dto.wdate }" pattern="yyyy.MM.dd hh:mm"/>
+                  </span>
                </div>
                <!-- 
                <div class="mt-2 pt-2 border-top file-box">

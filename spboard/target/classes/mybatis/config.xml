@@ -3,17 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
-   <typeAliases>
-     <typeAlias alias="spBoardDto" type="net.musecom.spboard.dto.SpBoardDto"/> <!-- type에 있는걸 이름을 spBoardDto로 바꿔준다. -->
-  </typeAliases>
-   
-  
-  <!-- 
-  <mappers>
-    <mapper resource="classpath:mybatis/mappers/bbs-mapper.xml"/>
-  </mappers>
-   -->
-  
-   
+  <typeAliases>
+     <typeAlias alias="spBoardDto" type="net.musecom.spboard.dto.SpBoardDto"/>
+     <typeAlias alias="uploadDto" type="net.musecom.spboard.dto.UploadFileDto"/>
+  </typeAliases> 
 </configuration>

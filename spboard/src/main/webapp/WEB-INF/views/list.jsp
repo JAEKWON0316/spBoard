@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- taglib 넣어주는방법 -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- fomat에 관련된 jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="listbox">
                 <h1 class="text-center mb-5">게시판</h1>
                 <div class="d-flex justify-content-between py-4">
                     <div>
-                        <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true" />posts /  <!-- jstl쓸 때 get을 뺴고써야한다!! -->
+                        <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
                         <fmt:formatNumber value="${pg.totalPages }" groupingUsed="true" />pages
                     </div>
                     <div>
-                        <a href="list" class="btn btn-primary">목록</a>
+                        <a href="#" class="btn btn-primary">목록</a>
                         <a href="write" class="btn btn-primary">글쓰기</a>                      
                     </div>
                 </div>
@@ -32,10 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <!-- value=""는 값이 없을경우 value="내용" 일때는 값이 있을경우 경우의 수가 2가지로 나누려고 변수선언 2번한것이다! -->
-                       <!-- styleDepth라는 변수 선언(c:set var), 값은 null로 --> 
-                       <!-- loop -->
-                        <c:forEach var="list" items="${list }">
+                       <c:forEach var="list" items="${list }">
                        <c:set var="styleDepth" value="" />
                        <c:set var="commentHit" value="" />
                        <c:set var="reicon" value="" />
@@ -60,37 +57,37 @@
                            <td class="text-center"><fmt:formatDate value="${list.wdate }" pattern="yyyy.MM.dd" /></td>
                        </tr>
                        </c:forEach> 
-
                        <!-- /loop -->
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-between py-4">
                     <div>
-                     
                     </div>
+                    
                     <ul class="paging">
                         <li>
                             <a href="?cpg=1"><i class="ri-arrow-left-double-line"></i></a>
                         </li>
                         <li>
-                            <a href="?cpg=${pg.startPage-1 > 0? pg.startPage-1 : pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
+                            <a href="?cpg=${pg.startPage-1 > 0? pg.startPage-1:pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
                         </li>
-                                             
-                            <c:forEach begin="${pg.startPage }" end="${pg.endPage }" var="i"> <!-- for문 돌릴 시작 끝 정하고 기본값 i로 지정 -->
-                            <li>
-                            	<a href="?cpg=${i }" class="${cpg==i?'active':'' }">${i }</a>
-                            </li>  
-                            </c:forEach>         
-                                                            
+                        <c:forEach begin="${pg.startPage }" end="${pg.endPage }" var="i">
+                        <li>                       
+                           <a href="?cpg=${i }" class="${cpg==i?'active':'' }">${i}</a>
+                        </li>
+                        </c:forEach>
+                        
                         <li>
-                            <a href="?cpg=${pg.endPage+1 > pg.totalPages? pg.totalPages : pg.endPage+1 }"><i class="ri-arrow-right-s-line"></i></a>
+                            <a href="?cpg=${pg.endPage + 1 > pg.totalPages? pg.totalPages : pg.endPage + 1 }"><i class="ri-arrow-right-s-line"></i></a>
                         </li>
+                        
                         <li>
                             <a href="?cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
                         </li>
                     </ul>
+                    
                     <div>
-                        <a href="list" class="btn btn-primary">목록</a>
+                        <a href="#" class="btn btn-primary">목록</a>
                         <a href="write" class="btn btn-primary">글쓰기</a>                      
                     </div>
                </div>
@@ -109,7 +106,7 @@
                                 <a class="dropdown-item" href="content">내용검색</a>
                             </div>
                         </div>
-                        <input type="hidden" name="searchname" id="searchname" value="title"/> <!-- 넘겨줄 때 클릭 안했으면 기본값 title -->
+                       <input type="hidden" name="searchname" id="searchname" value="title" />
                        <input type="search" name="searchvalue" class="form-control" placeholder="검색">
                        <div class="input-group-append">
                           <button class="btn btn-primary"><i class="ri-search-line"></i></button>

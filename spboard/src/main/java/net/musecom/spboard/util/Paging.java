@@ -4,14 +4,14 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 
-@Service //bean에다가 등록 (paging = new .. 하지 않고 쓸 수 있게함)
-@Setter //lombok에서 가져오는 getter setter
+@Service
+@Setter
 public class Paging {
-	
-	/* 가져올 변수들 */
+
+	/* 가져올 변수 들 */
 	private int currentPage; //받아올 현재 페이지 번호
 	private int totalPosts; //전체 글 수
-	private int postsPerPage; //한 페이지에 보여줄 블럭 수
+	private int postsPerPage; //한 화면에 보여줄 블럭 수
 	private int pagesPerBlock; //한 화면에 보여줄 페이지 수
 	
 	//전체 글 수
@@ -21,7 +21,7 @@ public class Paging {
 	
 	//전체 페이지 수
 	public int getTotalPages() {
-		return (int) Math.ceil((double) totalPosts /  postsPerPage);		
+		return (int) Math.ceil((double) totalPosts / postsPerPage);
 	}
 	
 	//시작페이지
