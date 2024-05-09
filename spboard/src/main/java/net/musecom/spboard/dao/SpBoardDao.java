@@ -24,13 +24,13 @@ public class SpBoardDao implements SpBoardMapper {
 	@Override
 	public int update(SpBoardDto dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return session.update("update", dto);
 	}
 
 	@Override
 	public int delete(int selectId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return session.delete("delete", selectId);
 	}
 
 	@Override
@@ -57,5 +57,17 @@ public class SpBoardDao implements SpBoardMapper {
 	@Override
 	public void updateRefId(int id) {
 		session.update("updateRefId", id);		
+	}
+
+	@Override
+	public void updateRenum(Map<String, Object> params) {
+		session.update("updateRenum", params);
+		
+	}
+
+	@Override
+	public int validatePass(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return session.selectOne("validatePass", params);
 	}
 }

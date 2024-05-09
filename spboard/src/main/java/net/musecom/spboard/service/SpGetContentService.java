@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import net.musecom.spboard.dao.SpBoardDao;
+import net.musecom.spboard.dao.UploadDao;
 import net.musecom.spboard.dto.SpBoardDto;
 
 @Service
@@ -16,7 +17,6 @@ public class SpGetContentService implements SpService {
 
 	@Autowired
 	SpBoardDao dao;
-	 
 	
 	@Override
 	public void excute(Model model) {

@@ -52,7 +52,7 @@
 	         type: 'post',
 	         data: { "fileUrl" : fileUrl },
 	         success: function(data) {
-	           if(data ){
+	           if(data){
 	             console.log("파일삭제");
 	           }else{
 	             console.log("파일삭제 실패");
@@ -68,7 +68,7 @@
    </script> 
        <div class="write">
               <h2 class="text-center mt-4 mb-5 pb-4">글쓰기</h2>
-              <form name="writeform" id="writeform" class="writeform row" method="post">
+              <form name="writeform" id="writeform" class="writeform row" action="rewrite" method="post">
                   <!-- 게스트일때 적용 -->
                   <div class="col-12 row">
                      <div class="col-6 row form-group">
@@ -89,9 +89,13 @@
                   </div>
                   <!-- /게스트일때 적용-->
                   <div class="col-12 text-center my-5">
-                     <a href="list" class="btn btn-danger px-5 mx-2">취소</a>
+                     <a href="list.html" class="btn btn-danger px-5 mx-2">취소</a>
                      <button class="btn btn-primary px-5 mx-2" type="submit">글쓰기</button>
                   </div>
                   <input type="hidden" name="imnum" id="imnum" value="${imnum }" />
+                  <input type="hidden" name="refid" value="${refid }" />
+                  <input type="hidden" name="depth" value="${depth }" />
+                  <input type="hidden" name="renum" value="${renum }" />
+                  <input type="hidden" name="cpg" value="${param.cpg }" />
               </form>
            </div>

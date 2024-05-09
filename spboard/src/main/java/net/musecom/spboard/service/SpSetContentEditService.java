@@ -14,7 +14,7 @@ import net.musecom.spboard.dao.UploadDao;
 import net.musecom.spboard.dto.SpBoardDto;
 
 @Service
-public class SpSetContentService implements SpService {
+public class SpSetContentEditService implements SpService {
    
 	@Autowired
     SpBoardDao dao;	
@@ -35,27 +35,11 @@ public class SpSetContentService implements SpService {
 		dto.setWriter(req.getParameter("writer"));
 		dto.setPass(req.getParameter("pass"));
 		dto.setImnum(req.getParameter("imnum"));
-		//dto.setImnum(System.currentTimeMillis() / 1000L); //unix 타임 스탬프 값
-		dto.setUserid("GUEST");
+		dto.setId(Integer.parseInt(req.getParameter("id")));
+			
+		dao.update(dto);
 		
-		if(req.getParameter("refid") != null) {
-			//답글일 경우
-			dto.setRefid(Integer.parseInt(req.getParameter("refid")));
-			dto.setRenum(Integer.parseInt(req.getParameter("renum"))+1);
-			dto.setDepth(Integer.parseInt(req.getParameter("depth"))+1);
-
-            Map<String, Object> params = new HashMap();
-            params.put("refid", dto.getRefid());
-            params.put("renum", dto.getRenum());
-            dao.updateRenum(params);		
-		}
-		
-		dao.insert(dto);
-		if(req.getParameter("refid") == null) {
-		    dao.updateRefId(dto.getId());
-		}
-		
-		Map<String, Object> paramsFile = new HashMap();
+		Map<String, Object> paramsFile = new HashMap<>();
 		paramsFile.put("jboard_id", dto.getId());
 		paramsFile.put("imnum", dto.getImnum());
 		

@@ -30,10 +30,9 @@
      </delete>
      
      <update id="updateFile" parameterType="hashMap">
-        UPDATE jboard_img SET jboard_id=#{jboard_id} 
-        WHERE imnum = #{imnum}
+        UPDATE jboard_img SET jboard_id=#{jboard_id} WHERE imnum = #{imnum}
      </update>
-     
+        
      <select id="selectById" resultType="uploadDto" parameterType="int">
         SELECT * FROM jboard_img WHERE id=#{selectId}
      </select>

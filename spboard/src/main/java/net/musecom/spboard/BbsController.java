@@ -1,6 +1,8 @@
 package net.musecom.spboard;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.musecom.spboard.dao.SpBoardDao;
 import net.musecom.spboard.dao.UploadDao;
 import net.musecom.spboard.dto.UploadFileDto;
 import net.musecom.spboard.service.SpGetContentService;
 import net.musecom.spboard.service.SpGetListService;
+import net.musecom.spboard.service.SpSetContentEditService;
 import net.musecom.spboard.service.SpSetContentService;
 import net.musecom.spboard.service.TrashFileDel;
 
@@ -39,6 +43,10 @@ public class BbsController {
 	@Autowired
 	SpSetContentService setContent;
 	
+	//update
+	@Autowired
+	SpSetContentEditService setContentEdit;
+	
 	@Autowired
 	ServletContext servletContext;
 	
@@ -47,6 +55,9 @@ public class BbsController {
 	
 	@Autowired
 	UploadDao uploadDao;
+	
+	@Autowired
+	SpBoardDao dao;
 	
 	@Autowired
 	TrashFileDel trashFileDel;
@@ -63,6 +74,7 @@ public class BbsController {
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
         trashFileDel.delCom();
+        
 		return "list";
 	}
 	
@@ -119,26 +131,65 @@ public class BbsController {
 		return "redirect:list";
 	}
 	
-	@GetMapping("/edit")
-	public String edit(Model model) {
-	    //mapper 확인
-		//request.getParameter("id") 확인
-		//SpGetContentService 실행해서 form 에 값을 넣어줌
-		System.out.println("edit() 실행됨");
+	@GetMapping("/rewrite")
+	public String rewrite(HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("rewrite() 실행됨");
+		String upDir = servletContext.getRealPath("/resources/");
+		System.out.println(upDir);
 		
+		String imnum = UUID.randomUUID().toString();
+		
+		model.addAttribute("refid", request.getParameter("refid"));
+		model.addAttribute("depth", request.getParameter("depth"));
+		model.addAttribute("renum", request.getParameter("renum"));
+		model.addAttribute("imnum", imnum);
+		return "rewrite";
+	}
+	
+	@PostMapping("/rewrite")
+	public String rewriteok(HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		System.out.println("writeok() 실행됨");
+		model.addAttribute("request", request);
+		setContent.excute(model);
+		return "redirect:list";
+	}
+	
+	
+	@RequestMapping("/edit")
+	public String edit(HttpServletRequest request, HttpServletResponse response,Model model) {
+		System.out.println("edit() 실행됨");
+		model.addAttribute("req", request);
+		model.addAttribute("increaseHit", false);
+		
+		getContent.excute(model);		
 		return "edit";
 	}
 	
-	@PostMapping("/edit")
-	public String editok(Model model) {
-	    //mapper 확인
-		//request값을 dto에 담아 
-		//SpSetEditService 실행해서 db 에 값을 넣어줌
-		//parameter로 page를 갖고 있다가
-		//return "redirect:list?cpg="+cpg;
-		System.out.println("edit() 실행됨");
+	@PostMapping("/editok")
+	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("editok() 실행됨");
+		String ids = request.getParameter("id");
 		
-		return "edit";
+		Map<String, Object> params = new HashMap<>();
+		try {
+			params.put("id", Integer.parseInt(ids));
+			params.put("pass", request.getParameter("pass"));
+			
+		}catch(NumberFormatException e) {
+			model.addAttribute("error", "에러가 발생했습니다.");
+			return "redirect:edit?id="+ids;
+		}
+		int result = dao.validatePass(params);
+		if(result > 0) {
+			model.addAttribute("request", request);
+			setContentEdit.excute(model);
+			return "redirect:contents?id="+ids;
+		}else {
+			//경고 보내기
+			model.addAttribute("error", "비밀번호가 틀렸습니다.");
+			return "redirect:edit?id="+ids;
+		}
 	}
 	
 	@PostMapping("/upload")

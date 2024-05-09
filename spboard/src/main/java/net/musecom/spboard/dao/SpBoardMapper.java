@@ -32,4 +32,10 @@ public interface SpBoardMapper {
 	
 	//refid 업데이트
 	public void updateRefId(int id);
+	
+	//답글 수 증가
+	public void updateRenum(Map<String, Object> params);
+	
+	//비밀번호 검증
+	public int validatePass(Map<String, Object> params);
 } 

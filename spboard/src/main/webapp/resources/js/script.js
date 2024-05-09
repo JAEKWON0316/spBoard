@@ -28,6 +28,55 @@ $(function(){
    $(".comments .btn-box").click(function(){
       $(this).find('.edel').toggle();
    });
+   
+   //삭제
+   $("#delete").click(function(e){
+      e.preventDefault();
+      var id = $(this).data("id");
+      const pass = prompt("사제를 위한 비밀번호를 입력하세요.");
+      /** 직접 폼으로 만들어서 전달 하는 방법 **/
+      if(pass) {
+         //삭제를 위해서는 서버에 pass 와 id 를 전달해 주어야 한다.
+         /*
+         var form = $('<form>', {
+            'method' : 'post' ,
+            'action' : 'del'
+         }).append(
+           $('<input>', {
+              'name' : 'pass',
+              'value' : pass,
+              'type' : 'hidden'    
+           })).append(
+           $('<input>', {
+              'name' : 'id',
+              'value' : id,
+              'type' : 'hidden'    
+           }));
+          $(document.body).append(form);
+          form.submit();
+          */
+          $.ajax({
+             url: 'del',
+             type: 'post',
+             data: { id: id, pass: pass },
+             success: function(res){
+                console.log(res);
+                const rs = Number(res);
+                if(rs){
+                	alert("삭제 성공");
+                	location.href="list";
+                }
+                else{
+                	alert("비밀번호가 틀렸습니다.");
+                }
+             },
+             error: function(){
+               alert("오류로 인해 삭제에 실패했습니다.");
+             }        
+          });
+          
+      }
+   });
 });
 
 

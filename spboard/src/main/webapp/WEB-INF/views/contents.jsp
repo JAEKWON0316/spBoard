@@ -27,9 +27,9 @@
                
                <div class="my-5 pt-5 text-right">
                   <a href="list?cpg=${param.cpg }" class="btn btn-primary mr-3">목록</a>
-                  <a href="rewrite?id=&refid=&depth=&renum=&cpg=" class="btn btn-primary">답글쓰기</a>
-                  <a href="pass?id=&mode=edit" class="btn btn-primary">수정</a>
-                  <a href="pass?id=&mode=del" class="btn btn-danger">삭제</a>                      
+                  <a href="rewrite?id=${dto.id }&refid=${dto.refid }&depth=${dto.depth }&renum=${dto.renum }&cpg=${param.cpg}" class="btn btn-primary">답글쓰기</a>
+                  <a href="edit?id=${dto.id }" class="btn btn-primary">수정</a>
+                  <a href="#" data-id="${dto.id }" id="delete" class="btn btn-danger">삭제</a>                      
                </div>
                
             </div>

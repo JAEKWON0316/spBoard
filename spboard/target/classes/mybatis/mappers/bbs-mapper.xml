@@ -51,6 +51,10 @@
      UPDATE jboard SET refid = #{id} WHERE id=#{id}
   </update>
 
+  <update id="updateRenum" parameterType="hashMap">
+     UPDATE jboard SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
+  </update>
+
   <update id="update" parameterType="spBoardDto">
      UPDATE jboard 
      SET
@@ -59,7 +63,7 @@
         writer = #{writer},
         pass = #{pass}
      WHERE
-        id=#{selectId}   
+        id=#{id}   
   </update>
   
   <delete id="delete" parameterType="int">
@@ -106,5 +110,10 @@
   <update id="increaseHit" parameterType="int">
      UPDATE jboard SET hit = hit + 1 WHERE id=#{selectId}
   </update>
+
+  <select id="validatePass" resultType="int" parameterType="hashMap">
+     SELECT count(*) FROM jboard WHERE id=#{id} and pass=#{pass}
+  </select>
+
 
 </mapper>
